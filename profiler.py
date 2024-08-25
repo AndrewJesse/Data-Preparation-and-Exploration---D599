@@ -1,20 +1,37 @@
 import pandas as pd
 
 def profiler(df, column_name, ascending=True):
-    # Define a variable that holds the array of unique values of column_name
-    unique_values = df[column_name].unique()  # Get unique values including NaN
+    # Ensure column_name is a string
+    if not isinstance(column_name, str):
+        raise TypeError("The column_name must be a string.")
+    
+    # Get the data types of all values in the column
+    unique_types = df[column_name].map(type).unique()
 
-    # Convert NaN to None for display purposes
-    unique_values = [None if pd.isna(x) else x for x in unique_values]
+    # Check if all values have the same data type
+    if len(unique_types) == 1:
+        print(f"All values in '{column_name}' are of type {unique_types[0].__name__}.")
+    else:
+        print(f"Values in '{column_name}' have mixed types: {', '.join([t.__name__ for t in unique_types])}.")
 
-    # Sort the unique values, treating None as the largest or smallest based on order
-    unique_values = sorted(unique_values, key=lambda x: (x is None, x), reverse=not ascending)
+    # Count the number of NaN values
+    nan_count = df[column_name].isna().sum()
+
+    # Count the number of blank values (empty strings or strings with only whitespace)
+    blank_count = df[column_name].apply(lambda x: isinstance(x, str) and x.strip() == '').sum()
+
+    # Print the count of NaN and blank values
+    print(f"\nNumber of NaN or Null values in '{column_name}': {nan_count}")
+    print(f"Number of blank space values in '{column_name}': {blank_count}")
+
+    # Sort the unique values
+    unique_values = sorted(df[column_name].unique(), key=lambda x: (x is None, x), reverse=not ascending)
 
     # Strip column_name from df and make it into a new DataFrame
     column_df = df[[column_name]]
 
     # Print the unique values of column_name
-    print(f"Unique values in '{column_name}' (sorted):")
+    print(f"\nUnique values in '{column_name}' (sorted):")
     print(unique_values)
 
     # Check for null values and print a message
@@ -24,4 +41,5 @@ def profiler(df, column_name, ascending=True):
     # Print the describe() output of the column_name DataFrame
     print(f"\nDescribe output for '{column_name}':")
     print(column_df.describe())
+
     return column_df
