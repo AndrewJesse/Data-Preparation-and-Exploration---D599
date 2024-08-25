@@ -1,9 +1,9 @@
-#Age	
-#Turnover
-#BusinessTravel
-DailyRate
-Department
-DistanceFromHome
+// Age	
+// Turnover
+// BusinessTravel
+// DailyRate
+// Department
+// DistanceFromHome
 Education
 EducationField
 EmployeeCount

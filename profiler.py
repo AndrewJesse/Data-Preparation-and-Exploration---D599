@@ -17,8 +17,11 @@ def profiler(df, column_name, ascending=True):
     print(f"Unique values in '{column_name}' (sorted):")
     print(unique_values)
 
+    # Check for null values and print a message
+    has_nulls = df[column_name].isna().any()
+    print(f"\nAre there null values in '{column_name}'? {'Yes' if has_nulls else 'No'}")
+
     # Print the describe() output of the column_name DataFrame
     print(f"\nDescribe output for '{column_name}':")
     print(column_df.describe())
-
     return column_df
