@@ -1,7 +1,4 @@
-# Check for duplicate entries
-duplicates = df.duplicated()
-print(df[duplicates])
-df = df.drop_duplicates()
+
 
 # Check for missing values
 missing_values = df.isnull().sum()
