@@ -24,8 +24,8 @@ def profiler(df, column_name, ascending=True):
     print(f"\nNumber of NaN or Null values in '{column_name}': {nan_count}")
     print(f"Number of blank space values in '{column_name}': {blank_count}")
 
-    # Sort the unique values
-    unique_values = sorted(df[column_name].unique(), key=lambda x: (x is None, x), reverse=not ascending)
+    # Sort the unique values, handling mixed types by sorting by type first
+    unique_values = sorted(df[column_name].unique(), key=lambda x: (type(x).__name__, x), reverse=not ascending)
 
     # Strip column_name from df and make it into a new DataFrame
     column_df = df[[column_name]]
@@ -40,6 +40,6 @@ def profiler(df, column_name, ascending=True):
 
     # Print the describe() output of the column_name DataFrame
     print(f"\nDescribe output for '{column_name}':")
-    print(column_df.describe())
+    print(column_df.describe(include='all'))
 
     return column_df

@@ -4,8 +4,8 @@
 // DailyRate
 // Department
 // DistanceFromHome
-Education
-EducationField
+// Education
+// EducationField
 EmployeeCount
 EmployeeNumber
 EnvironmentSatisfaction
