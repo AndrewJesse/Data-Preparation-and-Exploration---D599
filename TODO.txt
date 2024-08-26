@@ -17,7 +17,7 @@
 // JobSatisfaction
 // MaritalStatus
 // MonthlyIncome
-MonthlyRate
+// MonthlyRate
 // NumCompaniesWorked
 // Over18
 // OverTime
